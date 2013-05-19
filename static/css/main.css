@@ -1,0 +1,7 @@
+body {
+	background: #999 url('/img/bg1.jpg') repeat-y top center;
+}
+
+.hero-unit {
+	background-color: rgba(0, 0, 0, .75);
+}
