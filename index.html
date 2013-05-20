@@ -7,6 +7,11 @@
 <link rel="stylesheet" type="text/css" href="/css/darkstrap.min.css" />
 <link rel="stylesheet" type="text/css" href="/css/font-awesome.min.css">
 <link rel="stylesheet" type="text/css" href="/css/main.css" />
+<style>
+body {
+	background: #999 url('/img/bg{{bg}}.jpg') repeat top center;
+}
+</style>
 </head>
 <body>
 	<div class="container">
@@ -14,8 +19,8 @@
 			<div class="navbar-inner">
 				<img src="/img/icon.png" width="100" class="pull-left" />
 				<h1 class="text-warning">
-					La Oreja de Morfeo&trade;<br> <small>Tu banda de pop español
-						bautizada en segundos</small>
+					La Oreja de Morfeo&trade;<br> <small>Tu banda de pop
+						español bautizada en segundos</small>
 				</h1>
 				<blockquote class="pull-right text-warning">
 					¡Ahora con Bootstrap!<small>El Administrador</small>
@@ -25,8 +30,8 @@
 		<div class="hero-unit span10">
 			<div class="row">
 				<div class="span10">
-					<h3>{% if numero == 1%} Tu grupo se llamará{% else %} Elige tu
-						preferido{% endif %}:</h3>
+					<h3>{% if numero == 1%} Tu grupo se llamará:{% else %} Elige tu
+						preferido{% endif %}</h3>
 					<hr>
 				</div>
 			</div>
@@ -34,11 +39,11 @@
 				<div class="span2"></div>
 				<div class="span6">
 					{% if numero == 1 %}
-					<h2 class="text-info text-center">{{nombres[0]}}</h2>
+					<h2 class="text-info text-center nombre">{{nombres[0]}}</h2>
 					{% else %}
 					<ol>
 						{% for nombre in nombres %}
-						<li><h3 class="text-info">{{nombre}}</h3></li> {% endfor %}
+						<li><h3 class="text-info nombre">{{nombre}}</h3></li> {% endfor %}
 					</ol>
 					{% endif %}
 				</div>
@@ -47,43 +52,43 @@
 		</div>
 	</div>
 	<div class="container">
-	<div class="navbar">
-		<div class="navbar-inner">
-			<form action="/" class="form-horizontal">
-				<fieldset>
-					<legend>Opciones del generador</legend>
-					<div class="control-group">
-						<label for="numero" class="control-label">Número de
-							nombres</label>
-						<div class="controls">
-							<input type="text" name="numero" value="{{numero}}"
-								placeholder="Ejemplo: 1" />
+		<div class="navbar">
+			<div class="navbar-inner">
+				<form action="/" class="form-horizontal">
+					<fieldset>
+						<legend>Opciones del generador</legend>
+						<div class="control-group">
+							<label for="numero" class="control-label">Número de
+								nombres</label>
+							<div class="controls">
+								<input type="text" name="numero" value="{{numero}}"
+									placeholder="Ejemplo: 1" />
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<div class="controls">
-							<label class="checkbox"> <input type="checkbox"
-								name="cortos" {% if cortos %}checked{% endif %}>
-								Nombres cortos
-							</label> <label class="checkbox"> <input type="checkbox"
-								name="largos" {% if largos %}checked{% endif %}>
-								Nombres largos
-							</label> <label class="checkbox"> <input type="checkbox"
-								name="compuestos" {% if compuestos %}checked{% endif %}>
-								Nombres compuestos
-							</label>
+						<div class="control-group">
+							<div class="controls">
+								<label class="checkbox"> <input type="checkbox"
+									name="cortos"{% if cortos %}checked{% endif %}> Nombres
+									cortos
+								</label> <label class="checkbox"> <input type="checkbox"
+									name="largos"{% if largos %}checked{% endif %}> Nombres
+									largos
+								</label> <label class="checkbox"> <input type="checkbox"
+									name="compuestos"{% if compuestos %}checked{% endif %}>
+									Nombres compuestos
+								</label>
+							</div>
 						</div>
-					</div>
-					<div class="control-group">
-						<label for="" class="control-label"></label>
-						<div class="controls">
-							<button class="btn btn-primary btn-large" type="submit">Generar!</button>
+						<div class="control-group">
+							<label for="" class="control-label"></label>
+							<div class="controls">
+								<button class="btn btn-primary btn-large" type="submit">Generar!</button>
+							</div>
 						</div>
-					</div>
-				</fieldset>
-			</form>
+					</fieldset>
+				</form>
+			</div>
 		</div>
-	</div>
 	</div>
 	<footer class="container">
 		{%if DEBUG %}
@@ -100,7 +105,15 @@
 			<strong>compuestos: </strong>{{compuestos}}
 		</p>
 		{% endif %}
-		<p class="text-info"><i class="icon-twitter"></i><a href="http://www.twitter.com/oscar_dr">Óscar Gómez Alcañiz, &copy;2013</a></p>
+		<p class="text-info">
+			<i class="icon-twitter"></i><a href="http://www.twitter.com/oscar_dr">Óscar
+				Gómez Alcañiz, &copy;2013</a>
+		</p>
+		<p class="text-info">
+			Wallpapers from: <a
+				href="http://hydrogen666.deviantart.com/art/Flock-Wallpaper-Pattern-89953817">hydrogen666</a>,
+			<a href="http://webtreats.mysitemyway.com/">webtreats</a>
+		</p>
 	</footer>
 	<script src="http://code.jquery.com/jquery.js"></script>
 	<script src="/js/bootstrap.min.js"></script>

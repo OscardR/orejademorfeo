@@ -59,7 +59,13 @@ class MainPage( webapp2.RequestHandler ):
 
         nombres = self.generar_nombres( numero, cortos, largos, compuestos )
 
-        template_values = { 'nombres' : nombres, 'numero' : numero, 'cortos' : cortos, 'largos' : largos, 'compuestos' : compuestos }
+        template_values = {
+            'nombres' : nombres,
+            'numero' : numero,
+            'cortos' : cortos,
+            'largos' : largos,
+            'compuestos' : compuestos,
+            'bg' : choice( range( 1, 38 ) ) }
         template = JINJA_ENVIRONMENT.get_template( 'index.html' )
         self.response.write( template.render( template_values ) )
 
