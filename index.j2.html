@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>La Oreja de Morfeo&trade;</title>
+  <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+        crossorigin="anonymous">
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
+        integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
+        crossorigin="anonymous"/>
+  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+</head>
+
+<body>
+<div class="parallax--wrapper">
+  <div class="parallax--region">
+    <div class="parallax--background"
+         style="background-image: url('https://source.unsplash.com/collection/{{ collection }}/1920x1080')">
+    </div>
+
+    <header id="banner" class="jumbotron jumbotron-fluid bg-dark text-white">
+      <div class="container">
+        <img id="logo" src="/img/ear.svg" width="100" class="float-left mr-3 p-2"/>
+
+        <h1 class="display-4">
+          La Oreja de Morfeo&trade;</h1>
+
+        <p class="lead">Tu banda de pop
+          español bautizada en segundos</small></p>
+
+        <blockquote class="text-right">
+          ¡Ahora con <strong>Bootstrap v4.5.2</strong>!<br><small>&mdash; El Administrador</small>
+        </blockquote>
+      </div>
+    </header>
+
+    <main class="container pb-3 with-fixed-footer">
+      <div class="row">
+        <section class="col-12 col-sm-push-12 col-sm-6 col-md-5 col-lg-4">
+          <form action="/" class="form-horizontal">
+            <div class="card bg-dark text-white">
+              <div class="card-header">
+                <legend>Opciones del generador</legend>
+              </div>
+              <div class="card-body">
+
+                <fieldset>
+                  <div class="card-text">
+                    <div class="form-group">
+                      <label for="numero">Número de nombres</label>
+                      <input type="number" class="form-control" id="numero" name="numero" aria-describedby="emailHelp"
+                             placeholder="Ejemplo: 1" value="{{numero}}">
+                      <small id="numeroHelp" class="form-text text-muted">Especifica cuántos nombres quieres
+                        generar</small>
+                    </div>
+
+                    <div class="mb-3">
+                      <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="cortos"
+                               name="cortos" {% if cortos %}checked{% endif %}>
+                        <label class="form-check-label" for="cortos">
+                          Nombres cortos
+                        </label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="largos"
+                               name="largos" {% if largos %}checked{% endif %}>
+                        <label class="form-check-label" for="largos">
+                          Nombres
+                          largos
+                        </label>
+                      </div>
+
+                      <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               id="compuestos"
+                               name="compuestos" {% if compuestos %}checked{% endif %}>
+                        <label class="form-check-label" for="compuestos">
+                          Nombres compuestos
+                        </label>
+                      </div>
+                    </div>
+
+                    <button class="btn btn-primary btn-large" type="submit">Generar!</button>
+                  </div>
+                </fieldset>
+              </div>
+            </div>
+          </form>
+        </section>
+
+        <section class="col-12 col-sm-pull-12 col-sm-6 col-md-7 col-lg-8">
+          <div class="card bg-dark text-white">
+            <div class="card-header">
+              <h4>
+                {%- if numero == 1 -%}
+                Tu grupo se llamará:
+                {%- else -%}
+                Elige tu preferido
+                {%- endif -%}
+              </h4>
+            </div>
+
+            {%- if numero == 1 -%}
+            <div class="card-body">
+              <h1 class="text-center nombre">❝{{nombres[0]}}❞ {{ emojis[0] }}</h1>
+            </div>
+            {%- else -%}
+            <ul class="list-group list-group-flush">
+              {%- for nombre in nombres -%}
+              <li class="list-group-item bg-transparent">
+                <h5 class="nombre">
+                  <div class="badge badge-secondary badge-pill">{{loop.index}}</div>&ensp;
+                  ❝{{nombre}}❞ {{ emojis[loop.index - 1] }}
+                </h5>
+              </li>
+              {%- endfor -%}
+            </ul>
+            {%- endif -%}
+          </div>
+        </section>
+      </div>
+    </main>
+
+    {%if DEBUG %}
+    <aside id="debug"
+           class="alert alert-warning">
+      <p>
+        <strong>numero: </strong>{{numero}}
+      </p>
+      <p>
+        <strong>cortos: </strong>{{cortos}}
+      </p>
+      <p>
+        <strong>largos: </strong>{{largos}}
+      </p>
+      <p>
+        <strong>compuestos: </strong>{{compuestos}}
+      </p>
+    </aside>
+    {% endif %}
+
+    <footer class="footer text-center text-white py-3 bg-dark">
+      <div class="container">
+        <i class="fab fa-twitter"></i>&ensp;<a href="http://www.twitter.com/oscar_dr">Óscar
+        Gómez Alcañiz, &copy;2020</a>
+        <span class="text-dark">//</span> <i class="fas fa-images"></i>&ensp;Wallpapers from: <a
+          href="https://source.unsplash.com/">Unsplash Source</a>
+        <span class="text-dark">//</span> 👂&ensp;Icon made from <a href="http://www.onlinewebfonts.com/icon">Icon
+        Fonts</a> is licensed by CC BY
+        3.0
+      </div>
+    </footer>
+  </div>
+</div>
+</body>
+</html>
