@@ -1,4 +1,5 @@
 runtime: python37
+version: v2
 
 handlers:
 - url: /favicon.ico
