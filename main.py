@@ -11,7 +11,7 @@ from flask import Flask, request
 from palabras import Palabras
 
 # Init app
-app = Flask(__name__, static_url_path='/')
+app = Flask(__name__, static_url_path='/static/')
 
 # Set Jinja environment
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -89,7 +89,7 @@ def index():
         'collection': choice(collections),
         # 'DEBUG': True
     }
-    template = JINJA_ENVIRONMENT.get_template('index.j2.html')
+    template = JINJA_ENVIRONMENT.get_template('index.html.jinja2')
     return template.render(template_values)
 
 

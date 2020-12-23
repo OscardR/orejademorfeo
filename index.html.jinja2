@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
   <meta charset="UTF-8">
   <title>La Oreja de Morfeo&trade;</title>
@@ -11,7 +11,8 @@
         href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"
         integrity="sha512-+4zCK9k+qNFUR5X+cKL9EIR+ZOhtIloNl9GIKS57V1MyNsYpYcUrUeQc9vNfzsWfV28IaLL3i96P9sdNyeRssA=="
         crossorigin="anonymous"/>
-  <link rel="stylesheet" type="text/css" href="/css/main.css"/>
+  <link rel="stylesheet" type="text/css" href="static/css/main.css"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
 <body>
@@ -23,36 +24,68 @@
 
     <header id="banner" class="jumbotron jumbotron-fluid bg-dark text-white">
       <div class="container">
-        <img id="logo" src="/img/ear.svg" width="100" class="float-left mr-3 p-2"/>
+        <img alt="OrejaDeMorfeo Logo" id="logo" src="static/img/ear.svg" width="100" class="float-left mr-3 p-2"/>
 
         <h1 class="display-4">
-          La Oreja de Morfeo&trade;</h1>
+          La Oreja de Morfeo&trade;
+        </h1>
 
-        <p class="lead">Tu banda de pop
-          español bautizada en segundos</small></p>
+        <p class="lead">
+          Tu banda de pop español bautizada en segundos
+        </p>
 
         <blockquote class="text-right">
-          ¡Ahora con <strong>Bootstrap v4.5.2</strong>!<br><small>&mdash; El Administrador</small>
+          ¡Ahora con <strong>Bootstrap v4.5.2</strong>!<br>
+          <small>&mdash; El Administrador</small>
         </blockquote>
       </div>
     </header>
 
     <main class="container pb-3 with-fixed-footer">
       <div class="row">
-        <section class="col-12 col-sm-push-12 col-sm-6 col-md-5 col-lg-4">
-          <form action="/" class="form-horizontal">
-            <div class="card bg-dark text-white">
-              <div class="card-header">
-                <legend>Opciones del generador</legend>
-              </div>
-              <div class="card-body">
+        <section class="col-sm-6 col-md-7 col-lg-8 mb-3">
+          <div class="card bg-dark text-white">
+            <div class="card-header">
+              <h4>
+                {%- if numero == 1 -%}
+                  ✔ Tu grupo se llamará:
+                {%- else -%}
+                  🎯 Elige tu preferido
+                {%- endif -%}
+              </h4>
+            </div>
 
-                <fieldset>
+            {%- if numero == 1 -%}
+              <div class="card-body">
+                <h1 class="text-center nombre">❝{{ nombres[0] }}❞ {{ emojis[0] }}</h1>
+              </div>
+            {%- else -%}
+              <ul class="list-group list-group-flush">
+                {%- for nombre in nombres -%}
+                  <li class="list-group-item bg-transparent">
+                    <h5 class="nombre">
+                      <div class="badge badge-secondary badge-pill">{{ loop.index }}</div>&ensp;
+                      ❝{{ nombre }}❞ {{ emojis[loop.index - 1] }}
+                    </h5>
+                  </li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </div>
+        </section>
+
+        <section class="col-sm-6 col-md-5 col-lg-4 mb-3">
+          <form action="" class="form-horizontal">
+            <div class="card bg-dark text-white">
+              <fieldset>
+                <legend class="card-header">Opciones del generador</legend>
+
+                <div class="card-body">
                   <div class="card-text">
                     <div class="form-group">
                       <label for="numero">Número de nombres</label>
                       <input type="number" class="form-control" id="numero" name="numero" aria-describedby="emailHelp"
-                             placeholder="Ejemplo: 1" value="{{numero}}">
+                             placeholder="Ejemplo: 1" value="{{ numero }}">
                       <small id="numeroHelp" class="form-text text-muted">Especifica cuántos nombres quieres
                         generar</small>
                     </div>
@@ -92,61 +125,30 @@
 
                     <button class="btn btn-primary btn-large" type="submit">Generar!</button>
                   </div>
-                </fieldset>
-              </div>
+                </div>
+              </fieldset>
             </div>
           </form>
-        </section>
-
-        <section class="col-12 col-sm-pull-12 col-sm-6 col-md-7 col-lg-8">
-          <div class="card bg-dark text-white">
-            <div class="card-header">
-              <h4>
-                {%- if numero == 1 -%}
-                ✔ Tu grupo se llamará:
-                {%- else -%}
-                🎯 Elige tu preferido
-                {%- endif -%}
-              </h4>
-            </div>
-
-            {%- if numero == 1 -%}
-            <div class="card-body">
-              <h1 class="text-center nombre">❝{{nombres[0]}}❞ {{ emojis[0] }}</h1>
-            </div>
-            {%- else -%}
-            <ul class="list-group list-group-flush">
-              {%- for nombre in nombres -%}
-              <li class="list-group-item bg-transparent">
-                <h5 class="nombre">
-                  <div class="badge badge-secondary badge-pill">{{loop.index}}</div>&ensp;
-                  ❝{{nombre}}❞ {{ emojis[loop.index - 1] }}
-                </h5>
-              </li>
-              {%- endfor -%}
-            </ul>
-            {%- endif -%}
-          </div>
         </section>
       </div>
     </main>
 
-    {%if DEBUG %}
-    <aside id="debug"
-           class="alert alert-warning">
-      <p>
-        <strong>numero: </strong>{{numero}}
-      </p>
-      <p>
-        <strong>cortos: </strong>{{cortos}}
-      </p>
-      <p>
-        <strong>largos: </strong>{{largos}}
-      </p>
-      <p>
-        <strong>compuestos: </strong>{{compuestos}}
-      </p>
-    </aside>
+    {% if DEBUG %}
+      <aside id="debug"
+             class="alert alert-warning">
+        <p>
+          <strong>numero: </strong>{{ numero }}
+        </p>
+        <p>
+          <strong>cortos: </strong>{{ cortos }}
+        </p>
+        <p>
+          <strong>largos: </strong>{{ largos }}
+        </p>
+        <p>
+          <strong>compuestos: </strong>{{ compuestos }}
+        </p>
+      </aside>
     {% endif %}
 
     <footer class="footer text-center text-white py-3 bg-dark">

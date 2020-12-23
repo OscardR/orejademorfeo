@@ -40,8 +40,8 @@ header#banner {
   padding: 2rem;
 }
 
-.card-header legend {
-  margin-bottom: 0;
+.badge-secondary {
+  background-color: rgba(0 0 0 / 0.8);
 }
 
 .bg-transparent {
@@ -61,4 +61,14 @@ header#banner {
   position: absolute;
   width: 100%;
   bottom: 0;
+}
+
+@media screen and (max-width: 360px) {
+  .footer {
+    position: relative;
+  }
+
+  .with-fixed-footer {
+    margin-bottom: 0;
+  }
 }
