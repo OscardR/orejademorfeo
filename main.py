@@ -58,9 +58,15 @@ def generar_nombres(numero=1, cortos=False, largos=False, compuestos=False):
             adj = choice(p.adjetivos)
             nom = choice(list(p.propios.keys()))
             gen = p.propios[nom]
-            # todo: check for -or suffix
-            if gen == "f" and adj[-1] == "o":
-                adj = f"{adj[:-1]}a"
+
+            if gen == "f":
+                if adj[-1] == "o":
+                    adj = f"{adj[:-1]}a"
+                elif adj[-2:] == "or":
+                    adj = f"{adj[:-2]}ora"
+                elif adj[-2:] == "ón":
+                    adj = f"{adj[:-2]}ona"
+            
             nombre = f"{adj.capitalize()} {nom.capitalize()}"
         nombres.append(nombre)
         emojis.append(emoji)

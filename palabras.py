@@ -48,7 +48,7 @@ class Palabras:
         "pobre",
         "sencillo",
         "sofisticado",
-        "Inmóvil",
+        "inmóvil",
         "quieto",
         "estático",
         "rápido",
