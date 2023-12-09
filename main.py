@@ -25,57 +25,8 @@ DEBUG = os.environ.get("ODM_DEBUG", False)
 
 collections = [2227687, 9757292, 1656221, 8647462, 326214, 9297490, 1980161]
 
-
-def generar_nombres(numero=1, cortos=False, largos=False, compuestos=False):
-    p = Palabras()
-    nombres = []
-    emojis = []
-    tipos = []
-
-    if cortos == "on":
-        tipos.append("corto")
-    if largos == "on":
-        tipos.append("largo")
-    if compuestos == "on":
-        tipos.append("compuesto")
-
-    for _ in range(numero):
-        tipo = (
-            choice(tipos) if len(tipos) > 0 else choice(["corto", "largo", "compuesto"])
-        )
-
-        emoji = choice(list(p.emojis))
-
-        if tipo == "largo" or tipo == "compuesto":
-            obj = choice(list(p.comunes.keys()))
-            gen = p.comunes[obj]
-            art = "El" if gen == "m" else "La"
-            nom = choice(list(p.propios.keys()))
-
-            if tipo == "compuesto":
-                adj = choice(p.adjetivos)
-                if gen == "f" and adj[-1] == "o":
-                    adj = f"{adj[:-1]}a"
-                nombre = f"{art} {adj.capitalize()} {obj.capitalize()} de {nom}"
-            else:
-                nombre = f"{art} {obj.capitalize()} de {nom}"
-        else:
-            adj = choice(p.adjetivos)
-            nom = choice(list(p.propios.keys()))
-            gen = p.propios[nom]
-
-            if gen == "f":
-                if adj[-1] == "o":
-                    adj = f"{adj[:-1]}a"
-                elif adj[-2:] == "or":
-                    adj = f"{adj[:-2]}ora"
-                elif adj[-2:] == "ón":
-                    adj = f"{adj[:-2]}ona"
-
-            nombre = f"{adj.capitalize()} {nom.capitalize()}"
-        nombres.append(nombre)
-        emojis.append(emoji)
-    return nombres, emojis
+# Initialize name generator module
+palabras = Palabras()
 
 
 @app.route("/")
@@ -92,7 +43,7 @@ def index():
     largos = request.args.get("largos")
     compuestos = request.args.get("compuestos")
 
-    nombres, emojis = generar_nombres(numero, cortos, largos, compuestos)
+    nombres, emojis = palabras.generar_nombres(numero, cortos, largos, compuestos)
 
     template_values = {
         "nombres": nombres,
