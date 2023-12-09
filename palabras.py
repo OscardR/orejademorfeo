@@ -1,8 +1,8 @@
 # coding: utf-8
-'''
+"""
 Created on 19/05/2013
-@author: Óscar Gómez Alcañiz <oscar.gomez.london@gmail.com>
-'''
+@author: Óscar Gómez Alcañiz <oscar.gomez.alcaniz@gmail.com>
+"""
 
 
 class Palabras:
@@ -127,7 +127,8 @@ class Palabras:
         "campechano",
         "risueño",
         "llorón",
-        "tímido"]
+        "tímido",
+    ]
 
     propios = {
         "Nerea": "f",
@@ -754,7 +755,8 @@ class Palabras:
         "Lucas": "m",
         "Lucien": "m",
         "Ludovic": "m",
-        "Luka": "m"}
+        "Luka": "m",
+    }
 
     comunes = {
         "canto": "m",
@@ -798,12 +800,17 @@ class Palabras:
         "obsesión": "f",
         "teorema": "m",
         "teoría": "f",
-        "conjetura": "m"}
+        "conjetura": "m",
+    }
 
     emojis = "🎸🪕🎻🎶🎙🥁🎵🎼🎹🎷🎺🎸"
 
     def __init__(self, propios=None, comunes=None, adjetivos=None, emojis=None):
-        if propios != None: self.propios = dict(self.propios.items() + propios.items())
-        if comunes != None: self.comunes = dict(self.comunes.items() + comunes.items())
-        if adjetivos != None: self.adjetivos = dict(self.adjetivos.items() + adjetivos.items())
-        if emojis != None: self.emojis = self.emojis.items() + emojis.items()
+        if propios != None:
+            self.propios = dict(self.propios.items() + propios.items())
+        if comunes != None:
+            self.comunes = dict(self.comunes.items() + comunes.items())
+        if adjetivos != None:
+            self.adjetivos = dict(self.adjetivos.items() + adjetivos.items())
+        if emojis != None:
+            self.emojis = self.emojis.items() + emojis.items()

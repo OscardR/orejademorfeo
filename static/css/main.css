@@ -1,7 +1,14 @@
 #debug {
-  position: absolute;
-  left: 1rem;
-  bottom: 56px;
+  position: fixed;
+  right: 1rem;
+  z-index: 1;
+  top: 100vh;
+  margin-top: -140px;
+}
+
+#debug p {
+  margin-bottom: 0;
+  font-family: monospace;
 }
 
 #logo {
@@ -45,11 +52,11 @@ header#banner {
 }
 
 .bg-transparent {
-  background-color: transparent!important;
+  background-color: transparent !important;
 }
 
 .bg-dark {
-  background-color: rgb(0 0 0 / .7)!important;
+  background-color: rgb(0 0 0 / 0.7) !important;
   backdrop-filter: blur(4px);
 }
 
