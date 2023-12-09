@@ -1,6 +1,6 @@
-# coding=utf-8
 #
 #   La Oreja de Morfeo: Tu nombre de banda de pop español en segundos!
+#
 #   @author: Óscar Gómez <oscar.gomez.alcaniz@gmail.com>
 #
 
@@ -12,17 +12,25 @@ from flask import Flask, request
 
 from palabras import Palabras
 
-# Init app
+#
+#   Init app
+#
 app = Flask(__name__, static_url_path="/static/")
 
-# Set Jinja environment
+#
+#   Set Jinja environment
+#
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=["jinja2.ext.autoescape"],
 )
+#
+#   Other environment settings
+#
 PORT = os.environ.get("ODM_PORT", 5000)
 DEBUG = os.environ.get("ODM_DEBUG", False)
 
+# Backgrounds from https://source.unsplash.com/
 collections = [2227687, 9757292, 1656221, 8647462, 326214, 9297490, 1980161]
 
 # Initialize name generator module
@@ -32,6 +40,8 @@ palabras = Palabras()
 @app.route("/")
 def index():
     errores = {}
+
+    # Get configuration from form
     try:
         numero = int(request.args.get("numero"))
         if numero > 1000 or numero < 0:
@@ -39,12 +49,15 @@ def index():
             numero = 1
     except:
         numero = 1
-    cortos = request.args.get("cortos")
-    largos = request.args.get("largos")
-    compuestos = request.args.get("compuestos")
 
+    cortos = request.args.get("cortos") == "on"
+    largos = request.args.get("largos") == "on"
+    compuestos = request.args.get("compuestos") == "on"
+
+    # Generate names
     nombres, emojis = palabras.generar_nombres(numero, cortos, largos, compuestos)
 
+    # Prepare template and response
     template_values = {
         "nombres": nombres,
         "numero": numero,
