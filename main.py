@@ -7,31 +7,35 @@
 import os
 from random import choice
 
-import jinja2
-from flask import Flask, request
+from flask import Flask, request, render_template
 
 from palabras import Palabras
 
 #
 #   Init app
 #
-app = Flask(__name__, static_url_path="/static/")
+app = Flask(__name__)
 
 #
-#   Set Jinja environment
+#   Configuration
 #
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=["jinja2.ext.autoescape"],
-)
-#
-#   Other environment settings
-#
-PORT = os.environ.get("ODM_PORT", 5000)
-DEBUG = os.environ.get("ODM_DEBUG", False)
+PORT = int(os.environ.get("PORT", os.environ.get("ODM_PORT", 5000)))
+DEBUG = os.environ.get("ODM_DEBUG", "False").lower() in ("true", "1", "yes")
 
 # Backgrounds from https://source.unsplash.com/
-collections = [2227687, 9757292, 1656221, 8647462, 326214, 9297490, 1980161]
+collections = [
+    "https://images.pexels.com/photos/1105666/pexels-photo-1105666.jpeg",
+    "https://images.pexels.com/photos/1763075/pexels-photo-1763075.jpeg",
+    "https://images.pexels.com/photos/1763067/pexels-photo-1763067.jpeg",
+    "https://images.pexels.com/photos/849/people-festival-party-dancing.jpg",
+    "https://images.pexels.com/photos/2747449/pexels-photo-2747449.jpeg",
+    "https://images.pexels.com/photos/1047442/pexels-photo-1047442.jpeg",
+    "https://images.pexels.com/photos/3661650/pexels-photo-3661650.jpeg",
+    "https://images.pexels.com/photos/2735037/pexels-photo-2735037.jpeg",
+    "https://images.pexels.com/photos/2728557/pexels-photo-2728557.jpeg",
+    "https://images.pexels.com/photos/2990835/pexels-photo-2990835.jpeg",
+    "https://images.pexels.com/photos/1120162/pexels-photo-1120162.jpeg",
+]
 
 # Initialize name generator module
 palabras = Palabras()
@@ -43,11 +47,11 @@ def index():
 
     # Get configuration from form
     try:
-        numero = int(request.args.get("numero"))
+        numero = int(request.args.get("numero", 1))
         if numero > 1000 or numero < 0:
             errores["numero"] = numero
             numero = 1
-    except:
+    except (TypeError, ValueError):
         numero = 1
 
     cortos = request.args.get("cortos") == "on"
@@ -57,7 +61,7 @@ def index():
     # Generate names
     nombres, emojis = palabras.generar_nombres(numero, cortos, largos, compuestos)
 
-    # Prepare template and response
+    # Prepare template variables
     template_values = {
         "nombres": nombres,
         "numero": numero,
@@ -69,9 +73,22 @@ def index():
         "errores": errores,
         "DEBUG": DEBUG,
     }
-    template = JINJA_ENVIRONMENT.get_template("index.jinja2.html")
-    return template.render(template_values)
+
+    # Use Flask's built-in template rendering
+    return render_template("index.jinja2.html", **template_values)
+
+
+@app.errorhandler(404)
+def not_found(error):
+    """Handle 404 errors"""
+    return render_template("404.html"), 404
+
+
+@app.errorhandler(500)
+def server_error(error):
+    """Handle 500 errors"""
+    return render_template("500.html"), 500
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="0.0.0.0", port=PORT)
+    app.run(debug=DEBUG, host="0.0.0.0", port=PORT)
