@@ -7,7 +7,7 @@ WORKDIR /opt/app
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PORT=8080
+ENV ODM_PORT=5000
 ENV ODM_DEBUG=false
 
 # Create non-root user for security
@@ -30,11 +30,11 @@ RUN chown -R appuser:appuser /opt/app
 USER appuser
 
 # Expose port
-EXPOSE 8080
+EXPOSE ${ODM_PORT}
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:8080/ || exit 1
+    CMD curl -f http://localhost:${ODM_PORT}/ || exit 1
 
 # Use gunicorn for production (more robust than Flask dev server)
-CMD ["gunicorn", "--bind", "0.0.0.0:8080", "--workers", "2", "--timeout", "120", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:${ODM_PORT}", "--workers", "2", "--timeout", "120", "main:app"]
