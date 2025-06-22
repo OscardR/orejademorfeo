@@ -22,7 +22,3 @@ handlers:
     # Optional: Set cache control for static files
     http_headers:
       Cache-Control: "public, max-age=3600"
-
-# Use automatic entrypoint detection (recommended)
-# GAE will automatically detect Flask apps
-# entrypoint: gunicorn -b :$PORT main:app  # Remove this line

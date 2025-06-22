@@ -19,7 +19,7 @@ app = Flask(__name__)
 #
 #   Configuration
 #
-PORT = int(os.environ.get("PORT", os.environ.get("PORT", 5000)))
+PORT = int(os.environ.get("PORT", 5000))
 DEBUG = os.environ.get("DEBUG", "False").lower() in ("true", "1", "yes")
 
 # Backgrounds from https://source.unsplash.com/
