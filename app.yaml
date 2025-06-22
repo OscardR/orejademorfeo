@@ -2,8 +2,8 @@ runtime: python312
 
 # Environment variables
 env_variables:
-  ODM_PORT: 5000
-  ODM_DEBUG: false
+  PORT: 5000
+  DEBUG: false
 
 # Automatic scaling (optional but recommended)
 automatic_scaling:
