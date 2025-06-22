@@ -7,8 +7,6 @@ WORKDIR /opt/app
 # Set environment variables
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
-ENV PORT=5000
-ENV DEBUG=false
 
 # Create non-root user for security
 RUN groupadd -r appuser && useradd -r -g appuser appuser
@@ -30,11 +28,11 @@ RUN chown -R appuser:appuser /opt/app
 USER appuser
 
 # Expose port
-EXPOSE ${PORT}
+EXPOSE 5000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=30s --retries=3 \
-    CMD curl -f http://localhost:${PORT}/ || exit 1
+    CMD curl -f http://localhost:5000/ || exit 1
 
 # Use gunicorn for production (more robust than Flask dev server)
-CMD ["gunicorn", "--bind", "0.0.0.0:${PORT}", "--workers", "2", "--timeout", "120", "main:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "2", "--timeout", "120", "main:app"]
